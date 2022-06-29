@@ -1,0 +1,65 @@
+<style>
+html, body {
+ height: 100%;
+}
+
+body {
+ margin: 0;
+}
+
+.flex-container {
+ height: 100%;
+ display: -webkit-box;
+ display: -moz-box;
+ display: -ms-flexbox;
+ display: -webkit-flex;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+.flex-item {
+ width: 50%;
+ height: 50%;
+
+}
+
+@media only screen and (max-width: 600px) {
+ .flex-item {
+  width: 100%;
+ }
+}
+
+.mat-error {
+ margin-left: -10px;
+}
+
+.error {
+ background-color: coral;
+ margin-bottom: 5px;
+ padding: 10px;
+ color: white;
+}
+
+.icon {
+ top: 9px;
+ cursor: pointer;
+ position: absolute;
+}
+</style>
+
+<div class="flex-container">
+ <div class="flex-item">
+  <div *ngIf="error" class="error">Bad answer! Try again! Good answer: <strong>{{ word.en }}</strong></div>
+  <mat-card style="text-align: center;"><strong>{{ word.pl }}</strong><mat-icon class="icon" style="right: 39px;" svgIcon="qmark" aria-hidden="false" aria-label="See answer" (click)="show_answer()"></mat-icon><mat-icon class="icon" style="right: 9px;" svgIcon="audio" aria-hidden="false" aria-label="Listen" (click)="play()"></mat-icon></mat-card>
+  <mat-form-field style="width: 100%; margin-top: 20px;" appearance="fill">
+   <mat-label>Odpowiedź</mat-label>
+   <input matInput type="text" placeholder="Ex. text" autofocus [formControl]="answer" (keydown.enter)="check()">
+   <mat-error *ngIf="answer.hasError('required')">
+    Answer is <strong>required</strong>
+   </mat-error>
+  </mat-form-field>
+ </div>
+</div>
+
+<router-outlet></router-outlet>
